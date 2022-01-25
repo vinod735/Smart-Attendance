@@ -1,3 +1,8 @@
+
+# About the Project
+This is the system build for smart attendance. Through this system an employee of any company working on any department on any shift can do his/her attendance.
+In this system there is a provision of viewing of employee, shift, department of particular company. The attendance report of desired employee can be viewed.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
