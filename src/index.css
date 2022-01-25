@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.attandanceTable table tr{
+    border: 1px solid grey;
+    text-align: center;    
+
+}
+.attandanceTable table th,td{
+    padding: 15px;
+    position: sticky;
+    top: 0;
+    left: 0;
+    
+}
+
+ .attandanceTable table thead th{
+    @apply text-red-400 sticky z-10 top-0;
+  }
+
+
+

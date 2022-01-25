@@ -1,0 +1,1070 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+"An object with an ID"
+interface Node {
+    "The ID of the object."
+    id: ID!
+}
+
+"""
+
+Archive account and revoke refresh tokens.
+
+User must be verified and confirm password.
+"""
+type ArchiveAccountPayload {
+    clientMutationId: String
+    errors: ExpectedErrorType
+    success: Boolean
+}
+
+"""
+
+Register user with fields defined in the settings.
+
+If the email field of the user model is part of the
+registration fields (default), check if there is
+no user with that email or as a secondary email.
+
+If it exists, it does not register the user,
+even if the email field is not defined as unique
+(default of the default django user model).
+
+When creating the user, it also creates a `UserStatus`
+related to that user, making it possible to track
+if the user is archived, verified and has a secondary
+email.
+
+Send account verification email.
+
+If allowed to not verified users login, return token.
+"""
+type AuthRegisterPayload {
+    clientMutationId: String
+    errors: ExpectedErrorType
+    success: Boolean
+}
+
+type AuthUserNode implements Node {
+    archived: Boolean
+    companyHod(after: String, before: String, first: Int, last: Int, level: Int, offset: Int, title: String): CompanyNodeConnection!
+    createdCompanys(after: String, before: String, first: Int, last: Int, level: Int, offset: Int, title: String): CompanyNodeConnection!
+    createdDesignations(after: String, before: String, first: Int, last: Int, offset: Int, title: String): DesignationNodeConnection!
+    createdEmployees(after: String, before: String, first: Int, jobTitle: ID, last: Int, offset: Int): EmployeeNodeConnection!
+    createdSettings(after: String, before: String, company: ID, first: Int, last: Int, offset: Int): SettingNodeConnection!
+    dateJoined: DateTime!
+    email: String!
+    employee: EmployeeNode
+    "The ID of the object."
+    id: ID!
+    isActive: Boolean!
+    isStaff: Boolean!
+    "Designates that this user has all permissions without explicitly assigning them."
+    isSuperuser: Boolean!
+    lastLogin: DateTime
+    mobileNumber: String!
+    password: String!
+    pk: Int
+    secondaryEmail: String
+    updatedCompanys(after: String, before: String, first: Int, last: Int, level: Int, offset: Int, title: String): CompanyNodeConnection!
+    updatedDesignations(after: String, before: String, first: Int, last: Int, offset: Int, title: String): DesignationNodeConnection!
+    updatedEmployees(after: String, before: String, first: Int, jobTitle: ID, last: Int, offset: Int): EmployeeNodeConnection!
+    updatedSettings(after: String, before: String, company: ID, first: Int, last: Int, offset: Int): SettingNodeConnection!
+    username: String!
+    verified: Boolean
+}
+
+type AuthUserNodeConnection {
+    "Contains the nodes in this connection."
+    edges: [AuthUserNodeEdge]!
+    "Pagination data for this connection."
+    pageInfo: PageInfo!
+}
+
+"A Relay edge containing a `AuthUserNode` and its cursor."
+type AuthUserNodeEdge {
+    "A cursor for use in pagination"
+    cursor: String!
+    "The item at the end of the edge"
+    node: AuthUserNode
+}
+
+type CompanyNode implements Node {
+    address: String
+    children(after: String, before: String, first: Int, last: Int, level: Int, offset: Int, title: String): CompanyNodeConnection!
+    city: String
+    companyAttendanceSetting: SettingNode
+    companyDesignation(after: String, before: String, first: Int, last: Int, offset: Int, title: String): DesignationNodeConnection!
+    companyEmployees(after: String, before: String, first: Int, jobTitle: ID, last: Int, offset: Int): EmployeeNodeConnection!
+    country: String
+    created: DateTime!
+    createdBy: AuthUserNode
+    endTime: Time
+    hod: AuthUserNode
+    "The ID of the object."
+    id: ID!
+    level: Int!
+    lft: Int!
+    modified: DateTime!
+    note: String
+    parent: CompanyNode
+    pk: Int
+    postalCode: String
+    province: String
+    rght: Int!
+    startTime: Time
+    title: String!
+    treeId: Int!
+    updatedBy: AuthUserNode
+}
+
+type CompanyNodeConnection {
+    edgeCount: Int
+    "Contains the nodes in this connection."
+    edges: [CompanyNodeEdge]!
+    "Pagination data for this connection."
+    pageInfo: PageInfo!
+    totalCount: Int
+}
+
+"A Relay edge containing a `CompanyNode` and its cursor."
+type CompanyNodeEdge {
+    "A cursor for use in pagination"
+    cursor: String!
+    "The item at the end of the edge"
+    node: CompanyNode
+}
+
+type CreateCompanyPayload {
+    clientMutationId: String
+    company: CompanyNode
+    errors: ExpectedErrorType
+    success: Boolean
+}
+
+type CreateDesignationPayload {
+    clientMutationId: String
+    designation: DesignationNode
+    errors: ExpectedErrorType
+    success: Boolean
+}
+
+type CreateEmployeePayload {
+    clientMutationId: String
+    employee: EmployeeNode
+    errors: ExpectedErrorType
+    success: Boolean
+}
+
+type CreateSettingPayload {
+    clientMutationId: String
+    errors: ExpectedErrorType
+    setting: SettingNode
+    success: Boolean
+}
+
+"""
+
+Delete account permanently or make `user.is_active=False`.
+
+The behavior is defined on settings.
+Anyway user refresh tokens are revoked.
+
+User must be verified and confirm password.
+"""
+type DeleteAccountPayload {
+    clientMutationId: String
+    errors: ExpectedErrorType
+    success: Boolean
+}
+
+type DeleteCompanyPayload {
+    clientMutationId: String
+    errors: ExpectedErrorType
+    message: String
+    success: Boolean
+}
+
+type DeleteDesignationPayload {
+    clientMutationId: String
+    errors: ExpectedErrorType
+    message: String
+    success: Boolean
+}
+
+type DeleteEmployeePayload {
+    clientMutationId: String
+    errors: ExpectedErrorType
+    message: String
+    success: Boolean
+}
+
+type DeleteSettingPayload {
+    clientMutationId: String
+    errors: ExpectedErrorType
+    message: String
+    success: Boolean
+}
+
+type DesignationNode implements Node {
+    assignEmployees(after: String, before: String, first: Int, jobTitle: ID, last: Int, offset: Int): EmployeeNodeConnection!
+    company: CompanyNode
+    created: DateTime!
+    createdBy: AuthUserNode
+    "The ID of the object."
+    id: ID!
+    modified: DateTime!
+    note: String
+    pk: Int
+    title: String!
+    updatedBy: AuthUserNode
+}
+
+type DesignationNodeConnection {
+    edgeCount: Int
+    "Contains the nodes in this connection."
+    edges: [DesignationNodeEdge]!
+    "Pagination data for this connection."
+    pageInfo: PageInfo!
+    totalCount: Int
+}
+
+"A Relay edge containing a `DesignationNode` and its cursor."
+type DesignationNodeEdge {
+    "A cursor for use in pagination"
+    cursor: String!
+    "The item at the end of the edge"
+    node: DesignationNode
+}
+
+type EmployeeNode implements Node {
+    company: CompanyNode
+    created: DateTime!
+    createdBy: AuthUserNode
+    hireDate: Date
+    "The ID of the object."
+    id: ID!
+    jobTitle: DesignationNode
+    location: String
+    modified: DateTime!
+    payType: String
+    pk: Int
+    salary: Decimal!
+    salaryChanged: DateTime!
+    sourceOfHire: String
+    updatedBy: AuthUserNode
+    user: AuthUserNode!
+    workPhone: String
+}
+
+type EmployeeNodeConnection {
+    edgeCount: Int
+    "Contains the nodes in this connection."
+    edges: [EmployeeNodeEdge]!
+    "Pagination data for this connection."
+    pageInfo: PageInfo!
+    totalCount: Int
+}
+
+"A Relay edge containing a `EmployeeNode` and its cursor."
+type EmployeeNodeEdge {
+    "A cursor for use in pagination"
+    cursor: String!
+    "The item at the end of the edge"
+    node: EmployeeNode
+}
+
+type Mutation {
+    """
+
+    Archive account and revoke refresh tokens.
+
+    User must be verified and confirm password.
+    """
+    archiveAccount(input: ArchiveAccountInput!): ArchiveAccountPayload
+    createCompany(input: CreateCompanyInput!): CreateCompanyPayload
+    createDesignation(input: CreateDesignationInput!): CreateDesignationPayload
+    createEmployee(input: CreateEmployeeInput!): CreateEmployeePayload
+    createSetting(input: CreateSettingInput!): CreateSettingPayload
+    """
+
+    Delete account permanently or make `user.is_active=False`.
+
+    The behavior is defined on settings.
+    Anyway user refresh tokens are revoked.
+
+    User must be verified and confirm password.
+    """
+    deleteAccount(input: DeleteAccountInput!): DeleteAccountPayload
+    deleteCompany(input: DeleteCompanyInput!): DeleteCompanyPayload
+    deleteDesignation(input: DeleteDesignationInput!): DeleteDesignationPayload
+    deleteEmployee(input: DeleteEmployeeInput!): DeleteEmployeePayload
+    deleteSetting(input: DeleteSettingInput!): DeleteSettingPayload
+    """
+
+    Change account password when user knows the old password.
+
+    A new token and refresh token are sent. User must be verified.
+    """
+    passwordChange(input: PasswordChangeInput!): PasswordChangePayload
+    """
+
+    Change user password without old password.
+
+    Receive the token that was sent by email.
+
+    If token and new passwords are valid, update
+    user password and in case of using refresh
+    tokens, revoke all of them.
+
+    Also, if user has not been verified yet, verify it.
+    """
+    passwordReset(input: PasswordResetInput!): PasswordResetPayload
+    """
+
+    Set user password - for passwordless registration
+
+    Receive the token that was sent by email.
+
+    If token and new passwords are valid, set
+    user password and in case of using refresh
+    tokens, revoke all of them.
+
+    Also, if user has not been verified yet, verify it.
+    """
+    passwordSet(input: PasswordSetInput!): PasswordSetPayload
+    "Same as `grapgql_jwt` implementation, with standard output."
+    refreshToken(input: RefreshTokenInput!): RefreshTokenPayload
+    """
+
+    Register user with fields defined in the settings.
+
+    If the email field of the user model is part of the
+    registration fields (default), check if there is
+    no user with that email or as a secondary email.
+
+    If it exists, it does not register the user,
+    even if the email field is not defined as unique
+    (default of the default django user model).
+
+    When creating the user, it also creates a `UserStatus`
+    related to that user, making it possible to track
+    if the user is archived, verified and has a secondary
+    email.
+
+    Send account verification email.
+
+    If allowed to not verified users login, return token.
+    """
+    register(input: AuthRegisterInput!): AuthRegisterPayload
+    """
+
+    Remove user secondary email.
+
+    Require password confirmation.
+    """
+    removeSecondaryEmail(input: RemoveSecondaryEmailInput!): RemoveSecondaryEmailPayload
+    """
+
+    Sends activation email.
+
+    It is called resend because theoretically
+    the first activation email was sent when
+    the user registered.
+
+    If there is no user with the requested email,
+    a successful response is returned.
+    """
+    resendActivationEmail(input: ResendActivationEmailInput!): ResendActivationEmailPayload
+    "Same as `grapgql_jwt` implementation, with standard output."
+    revokeToken(input: RevokeTokenInput!): RevokeTokenPayload
+    """
+
+    Send password reset email.
+
+    For non verified users, send an activation
+    email instead.
+
+    Accepts both primary and secondary email.
+
+    If there is no user with the requested email,
+    a successful response is returned.
+    """
+    sendPasswordResetEmail(input: SendPasswordResetEmailInput!): SendPasswordResetEmailPayload
+    """
+
+    Send activation to secondary email.
+
+    User must be verified and confirm password.
+    """
+    sendSecondaryEmailActivation(input: SendSecondaryEmailActivationInput!): SendSecondaryEmailActivationPayload
+    """
+
+    Swap between primary and secondary emails.
+
+    Require password confirmation.
+    """
+    swapEmails(input: SwapEmailsInput!): SwapEmailsPayload
+    """
+
+    Obtain JSON web token for given user.
+
+    Allow to perform login with different fields,
+    and secondary email if set. The fields are
+    defined on settings.
+
+    Not verified users can login by default. This
+    can be changes on settings.
+
+    If user is archived, make it unarchive and
+    return `unarchiving=True` on output.
+    """
+    tokenAuth(input: ObtainJSONWebTokenInput!): ObtainJSONWebTokenPayload
+    """
+
+    Update user model fields, defined on settings.
+
+    User must be verified.
+    """
+    updateAccount(input: UpdateAccountInput!): UpdateAccountPayload
+    updateCompany(input: UpdateCompanyInput!): UpdateCompanyPayload
+    updateDesignation(input: UpdateDesignationInput!): UpdateDesignationPayload
+    updateEmployee(input: UpdateEmployeeInput!): UpdateEmployeePayload
+    updateSetting(input: UpdateSettingInput!): UpdateSettingPayload
+    """
+
+    Verify user account.
+
+    Receive the token that was sent by email.
+    If the token is valid, make the user verified
+    by making the `user.status.verified` field true.
+    """
+    verifyAccount(input: VerifyAccountInput!): VerifyAccountPayload
+    """
+
+    Verify user secondary email.
+
+    Receive the token that was sent by email.
+    User is already verified when using this mutation.
+
+    If the token is valid, add the secondary email
+    to `user.status.secondary_email` field.
+
+    Note that until the secondary email is verified,
+    it has not been saved anywhere beyond the token,
+    so it can still be used to create a new account.
+    After being verified, it will no longer be available.
+    """
+    verifySecondaryEmail(input: VerifySecondaryEmailInput!): VerifySecondaryEmailPayload
+    "Same as `grapgql_jwt` implementation, with standard output."
+    verifyToken(input: VerifyTokenInput!): VerifyTokenPayload
+}
+
+"""
+
+Obtain JSON web token for given user.
+
+Allow to perform login with different fields,
+and secondary email if set. The fields are
+defined on settings.
+
+Not verified users can login by default. This
+can be changes on settings.
+
+If user is archived, make it unarchive and
+return `unarchiving=True` on output.
+"""
+type ObtainJSONWebTokenPayload {
+    clientMutationId: String
+    errors: ExpectedErrorType
+    success: Boolean
+    token: String
+    unarchiving: Boolean
+    user: UserNode
+}
+
+"The Relay compliant `PageInfo` type, containing data necessary to paginate this connection."
+type PageInfo {
+    "When paginating forwards, the cursor to continue."
+    endCursor: String
+    "When paginating forwards, are there more items?"
+    hasNextPage: Boolean!
+    "When paginating backwards, are there more items?"
+    hasPreviousPage: Boolean!
+    "When paginating backwards, the cursor to continue."
+    startCursor: String
+}
+
+"""
+
+Change account password when user knows the old password.
+
+A new token and refresh token are sent. User must be verified.
+"""
+type PasswordChangePayload {
+    clientMutationId: String
+    errors: ExpectedErrorType
+    success: Boolean
+    token: String
+}
+
+"""
+
+Change user password without old password.
+
+Receive the token that was sent by email.
+
+If token and new passwords are valid, update
+user password and in case of using refresh
+tokens, revoke all of them.
+
+Also, if user has not been verified yet, verify it.
+"""
+type PasswordResetPayload {
+    clientMutationId: String
+    errors: ExpectedErrorType
+    success: Boolean
+}
+
+"""
+
+Set user password - for passwordless registration
+
+Receive the token that was sent by email.
+
+If token and new passwords are valid, set
+user password and in case of using refresh
+tokens, revoke all of them.
+
+Also, if user has not been verified yet, verify it.
+"""
+type PasswordSetPayload {
+    clientMutationId: String
+    errors: ExpectedErrorType
+    success: Boolean
+}
+
+type Query {
+    companies(after: String, before: String, first: Int, last: Int, level: Int, offset: Int, title: String): CompanyNodeConnection
+    company(
+        "The ID of the object"
+        id: ID!
+    ): CompanyNode
+    designation(
+        "The ID of the object"
+        id: ID!
+    ): DesignationNode
+    designations(after: String, before: String, first: Int, last: Int, offset: Int, title: String): DesignationNodeConnection
+    employee(
+        "The ID of the object"
+        id: ID!
+    ): EmployeeNode
+    employees(after: String, before: String, first: Int, jobTitle: ID, last: Int, offset: Int): EmployeeNodeConnection
+    me: UserNode
+    setting(
+        "The ID of the object"
+        id: ID!
+    ): SettingNode
+    settings(after: String, before: String, company: ID, first: Int, last: Int, offset: Int): SettingNodeConnection
+    user(
+        "The ID of the object"
+        id: ID!
+    ): AuthUserNode
+    users(after: String, before: String, email: String, first: Int, last: Int, mobileNumber: String, offset: Int, username: String): AuthUserNodeConnection
+}
+
+"Same as `grapgql_jwt` implementation, with standard output."
+type RefreshTokenPayload {
+    clientMutationId: String
+    errors: ExpectedErrorType
+    payload: GenericScalar
+    success: Boolean
+    token: String
+}
+
+"""
+
+Remove user secondary email.
+
+Require password confirmation.
+"""
+type RemoveSecondaryEmailPayload {
+    clientMutationId: String
+    errors: ExpectedErrorType
+    success: Boolean
+}
+
+"""
+
+Sends activation email.
+
+It is called resend because theoretically
+the first activation email was sent when
+the user registered.
+
+If there is no user with the requested email,
+a successful response is returned.
+"""
+type ResendActivationEmailPayload {
+    clientMutationId: String
+    errors: ExpectedErrorType
+    success: Boolean
+}
+
+"Same as `grapgql_jwt` implementation, with standard output."
+type RevokeTokenPayload {
+    clientMutationId: String
+    errors: ExpectedErrorType
+    revoked: Int
+    success: Boolean
+}
+
+"""
+
+Send password reset email.
+
+For non verified users, send an activation
+email instead.
+
+Accepts both primary and secondary email.
+
+If there is no user with the requested email,
+a successful response is returned.
+"""
+type SendPasswordResetEmailPayload {
+    clientMutationId: String
+    errors: ExpectedErrorType
+    success: Boolean
+}
+
+"""
+
+Send activation to secondary email.
+
+User must be verified and confirm password.
+"""
+type SendSecondaryEmailActivationPayload {
+    clientMutationId: String
+    errors: ExpectedErrorType
+    success: Boolean
+}
+
+type SettingNode implements Node {
+    company: CompanyNode
+    created: DateTime!
+    createdBy: AuthUserNode
+    graceAfterCheckIn: Int!
+    graceAfterCheckOut: Int!
+    graceBeforeCheckIn: Int!
+    graceBeforeCheckOut: Int!
+    "The ID of the object."
+    id: ID!
+    modified: DateTime!
+    pk: Int
+    updatedBy: AuthUserNode
+}
+
+type SettingNodeConnection {
+    edgeCount: Int
+    "Contains the nodes in this connection."
+    edges: [SettingNodeEdge]!
+    "Pagination data for this connection."
+    pageInfo: PageInfo!
+    totalCount: Int
+}
+
+"A Relay edge containing a `SettingNode` and its cursor."
+type SettingNodeEdge {
+    "A cursor for use in pagination"
+    cursor: String!
+    "The item at the end of the edge"
+    node: SettingNode
+}
+
+"""
+
+Swap between primary and secondary emails.
+
+Require password confirmation.
+"""
+type SwapEmailsPayload {
+    clientMutationId: String
+    errors: ExpectedErrorType
+    success: Boolean
+}
+
+"""
+
+Update user model fields, defined on settings.
+
+User must be verified.
+"""
+type UpdateAccountPayload {
+    clientMutationId: String
+    errors: ExpectedErrorType
+    success: Boolean
+}
+
+type UpdateCompanyPayload {
+    clientMutationId: String
+    company: CompanyNode
+    errors: ExpectedErrorType
+    success: Boolean
+}
+
+type UpdateDesignationPayload {
+    clientMutationId: String
+    designation: DesignationNode
+    errors: ExpectedErrorType
+    success: Boolean
+}
+
+type UpdateEmployeePayload {
+    clientMutationId: String
+    employee: EmployeeNode
+    errors: ExpectedErrorType
+    success: Boolean
+}
+
+type UpdateSettingPayload {
+    clientMutationId: String
+    errors: ExpectedErrorType
+    setting: SettingNode
+    success: Boolean
+}
+
+type UserNode implements Node {
+    archived: Boolean
+    companyHod(after: String, before: String, first: Int, last: Int, level: Int, offset: Int, title: String): CompanyNodeConnection!
+    createdCompanys(after: String, before: String, first: Int, last: Int, level: Int, offset: Int, title: String): CompanyNodeConnection!
+    createdDesignations(after: String, before: String, first: Int, last: Int, offset: Int, title: String): DesignationNodeConnection!
+    createdEmployees(after: String, before: String, first: Int, jobTitle: ID, last: Int, offset: Int): EmployeeNodeConnection!
+    createdSettings(after: String, before: String, company: ID, first: Int, last: Int, offset: Int): SettingNodeConnection!
+    dateJoined: DateTime!
+    email: String!
+    employee: EmployeeNode
+    "The ID of the object."
+    id: ID!
+    isActive: Boolean!
+    isStaff: Boolean!
+    lastLogin: DateTime
+    mobileNumber: String!
+    pk: Int
+    secondaryEmail: String
+    updatedCompanys(after: String, before: String, first: Int, last: Int, level: Int, offset: Int, title: String): CompanyNodeConnection!
+    updatedDesignations(after: String, before: String, first: Int, last: Int, offset: Int, title: String): DesignationNodeConnection!
+    updatedEmployees(after: String, before: String, first: Int, jobTitle: ID, last: Int, offset: Int): EmployeeNodeConnection!
+    updatedSettings(after: String, before: String, company: ID, first: Int, last: Int, offset: Int): SettingNodeConnection!
+    username: String!
+    verified: Boolean
+}
+
+"""
+
+Verify user account.
+
+Receive the token that was sent by email.
+If the token is valid, make the user verified
+by making the `user.status.verified` field true.
+"""
+type VerifyAccountPayload {
+    clientMutationId: String
+    errors: ExpectedErrorType
+    success: Boolean
+}
+
+"""
+
+Verify user secondary email.
+
+Receive the token that was sent by email.
+User is already verified when using this mutation.
+
+If the token is valid, add the secondary email
+to `user.status.secondary_email` field.
+
+Note that until the secondary email is verified,
+it has not been saved anywhere beyond the token,
+so it can still be used to create a new account.
+After being verified, it will no longer be available.
+"""
+type VerifySecondaryEmailPayload {
+    clientMutationId: String
+    errors: ExpectedErrorType
+    success: Boolean
+}
+
+"Same as `grapgql_jwt` implementation, with standard output."
+type VerifyTokenPayload {
+    clientMutationId: String
+    errors: ExpectedErrorType
+    payload: GenericScalar
+    success: Boolean
+}
+
+"""
+
+The `Date` scalar type represents a Date
+value as specified by
+[iso8601](https://en.wikipedia.org/wiki/ISO_8601).
+"""
+scalar Date
+
+"""
+
+The `DateTime` scalar type represents a DateTime
+value as specified by
+[iso8601](https://en.wikipedia.org/wiki/ISO_8601).
+"""
+scalar DateTime
+
+"The `Decimal` scalar type represents a python Decimal."
+scalar Decimal
+
+"""
+
+Errors messages and codes mapped to
+fields or non fields errors.
+Example:
+{
+field_name: [
+{
+"message": "error message",
+"code": "error_code"
+}
+],
+other_field: [
+{
+"message": "error message",
+"code": "error_code"
+}
+],
+nonFieldErrors: [
+{
+"message": "error message",
+"code": "error_code"
+}
+]
+}
+"""
+scalar ExpectedErrorType
+
+"""
+
+The `GenericScalar` scalar type represents a generic
+GraphQL scalar value that could be:
+String, Boolean, Int, Float, List or Object.
+"""
+scalar GenericScalar
+
+"""
+
+The `Time` scalar type represents a Time value as
+specified by
+[iso8601](https://en.wikipedia.org/wiki/ISO_8601).
+"""
+scalar Time
+
+input ArchiveAccountInput {
+    clientMutationId: String
+    password: String!
+}
+
+input AuthRegisterInput {
+    clientMutationId: String
+    email: String!
+    mobileNumber: String!
+    username: String!
+}
+
+input CreateCompanyInput {
+    address: String
+    city: String
+    clientMutationId: String
+    companyId: String
+    country: String
+    endTime: String
+    hod: String
+    note: String
+    parent: String
+    postalCode: String
+    province: String
+    startTime: String
+    title: String
+}
+
+input CreateDesignationInput {
+    clientMutationId: String
+    company: String
+    designationId: String
+    note: String
+    title: String
+}
+
+input CreateEmployeeInput {
+    clientMutationId: String
+    employeeId: String
+}
+
+input CreateSettingInput {
+    clientMutationId: String
+    company: String
+    graceAfterCheckIn: String
+    graceAfterCheckOut: String
+    graceBeforeCheckIn: String
+    graceBeforeCheckOut: String
+    settingId: String
+}
+
+input DeleteAccountInput {
+    clientMutationId: String
+    password: String!
+}
+
+input DeleteCompanyInput {
+    clientMutationId: String
+    objectId: String!
+}
+
+input DeleteDesignationInput {
+    clientMutationId: String
+    objectId: String!
+}
+
+input DeleteEmployeeInput {
+    clientMutationId: String
+    objectId: String!
+}
+
+input DeleteSettingInput {
+    clientMutationId: String
+    objectId: String!
+}
+
+input ObtainJSONWebTokenInput {
+    clientMutationId: String
+    email: String
+    mobileNumber: String
+    password: String!
+    username: String
+}
+
+input PasswordChangeInput {
+    clientMutationId: String
+    newPassword1: String!
+    newPassword2: String!
+    oldPassword: String!
+}
+
+input PasswordResetInput {
+    clientMutationId: String
+    newPassword1: String!
+    newPassword2: String!
+    token: String!
+}
+
+input PasswordSetInput {
+    clientMutationId: String
+    newPassword1: String!
+    newPassword2: String!
+    token: String!
+}
+
+input RefreshTokenInput {
+    clientMutationId: String
+    token: String!
+}
+
+input RemoveSecondaryEmailInput {
+    clientMutationId: String
+    password: String!
+}
+
+input ResendActivationEmailInput {
+    clientMutationId: String
+    email: String!
+}
+
+input RevokeTokenInput {
+    clientMutationId: String
+    refreshToken: String!
+}
+
+input SendPasswordResetEmailInput {
+    clientMutationId: String
+    email: String!
+}
+
+input SendSecondaryEmailActivationInput {
+    clientMutationId: String
+    email: String!
+    password: String!
+}
+
+input SwapEmailsInput {
+    clientMutationId: String
+    password: String!
+}
+
+input UpdateAccountInput {
+    clientMutationId: String
+}
+
+input UpdateCompanyInput {
+    address: String
+    city: String
+    clientMutationId: String
+    companyId: String!
+    country: String
+    endTime: String
+    hod: String
+    note: String
+    parent: String
+    postalCode: String
+    province: String
+    startTime: String
+    title: String
+}
+
+input UpdateDesignationInput {
+    clientMutationId: String
+    company: String
+    designationId: String!
+    note: String
+    title: String
+}
+
+input UpdateEmployeeInput {
+    clientMutationId: String
+    employeeId: String!
+}
+
+input UpdateSettingInput {
+    clientMutationId: String
+    company: String
+    graceAfterCheckIn: String
+    graceAfterCheckOut: String
+    graceBeforeCheckIn: String
+    graceBeforeCheckOut: String
+    settingId: String!
+}
+
+input VerifyAccountInput {
+    clientMutationId: String
+    token: String!
+}
+
+input VerifySecondaryEmailInput {
+    clientMutationId: String
+    token: String!
+}
+
+input VerifyTokenInput {
+    clientMutationId: String
+    token: String!
+}
