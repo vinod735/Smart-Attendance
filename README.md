@@ -49,3 +49,16 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+# Build with
+> React.js
+> Tailwind Css
+> GraphQL
+
+# Installation
+1. clone the repo
+      git clone https://github.com/vinod735/Smart-Attendance.git
+2. install NPM packages
+      npm install
+3. Make .env file outside src folder and copy the below link on the file
+REACT_APP_SERVER_URL=https://smartattendance.dibtech.com.au/graphql/
