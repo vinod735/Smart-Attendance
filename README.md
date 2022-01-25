@@ -56,9 +56,9 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 > GraphQL
 
 # Installation
-1. clone the repo
+## 1. clone the repo
       git clone https://github.com/vinod735/Smart-Attendance.git
-2. install NPM packages
+## 2. install NPM packages
       npm install
 3. Make .env file outside src folder and copy the below link on the file
 REACT_APP_SERVER_URL=https://smartattendance.dibtech.com.au/graphql/
